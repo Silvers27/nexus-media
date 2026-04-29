@@ -16,7 +16,10 @@ This is a production-ready Next.js application that indexes music and movie meta
 3. Create a `.env.local` file with the following:
    ```
    MONGODB_URI=your_mongodb_connection_string
-   CRON_SECRET=your_secret_for_cron_jobs
+   TMDB_API_KEY=your_tmdb_key
+   THEAUDIODB_API_KEY=2
+   GENIUS_ACCESS_TOKEN=your_genius_token
+   YOUTUBE_API_KEY=your_youtube_key
    ```
 4. Run `npm run dev` to start the development server.
 

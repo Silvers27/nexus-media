@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Play, Clock, Link2, ExternalLink } from "lucide-react";
-import { fetchTrackDetails } from "@/lib/api/spotify";
+import { fetchTrackDetails } from "@/lib/api/music";
 import type { Metadata, ResolvingMetadata } from "next";
 
 export async function generateMetadata(
@@ -98,28 +98,43 @@ export default async function MusicDetailsPage({ params }: { params: { id: strin
               </h3>
               
               <div className="flex flex-col gap-3">
-                <a href="#" className="flex items-center justify-between p-4 bg-space rounded-xl border border-white/5 hover:border-neonPurple/50 hover:bg-white/5 transition-all group">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#1DB954] flex items-center justify-center">
-                       {/* Spotify Icon Mock */}
-                       <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.84.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                       </svg>
+                {track.youtubeId && (
+                  <a href={`https://www.youtube.com/watch?v=${track.youtubeId}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-4 bg-space rounded-xl border border-white/5 hover:border-[#FF0000]/50 hover:bg-white/5 transition-all group">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-[#FF0000] flex items-center justify-center">
+                        <Play className="w-3.5 h-3.5 text-white ml-0.5" fill="currentColor" />
+                      </div>
+                      <span className="font-bold text-white">YouTube</span>
                     </div>
-                    <span className="font-bold text-white">Spotify</span>
-                  </div>
-                  <ExternalLink className="w-4 h-4 text-softGray group-hover:text-neonPurple transition-colors" />
-                </a>
+                    <ExternalLink className="w-4 h-4 text-softGray group-hover:text-white transition-colors" />
+                  </a>
+                )}
 
-                <a href="#" className="flex items-center justify-between p-4 bg-space rounded-xl border border-white/5 hover:border-white/20 hover:bg-white/5 transition-all group">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#FF0000] flex items-center justify-center">
-                       <Play className="w-3.5 h-3.5 text-white ml-0.5" fill="currentColor" />
+                {track.lyricsUrl && (
+                  <a href={track.lyricsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-4 bg-space rounded-xl border border-white/5 hover:border-[#ffff64]/50 hover:bg-white/5 transition-all group">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-[#ffff64] flex items-center justify-center text-black font-bold text-xs">
+                        G
+                      </div>
+                      <span className="font-bold text-white">Genius Lyrics</span>
                     </div>
-                    <span className="font-bold text-white">Apple Music</span>
-                  </div>
-                  <ExternalLink className="w-4 h-4 text-softGray group-hover:text-white transition-colors" />
-                </a>
+                    <ExternalLink className="w-4 h-4 text-softGray group-hover:text-white transition-colors" />
+                  </a>
+                )}
+
+                {track.external_urls?.spotify && (
+                  <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-4 bg-space rounded-xl border border-white/5 hover:border-[#1DB954]/50 hover:bg-white/5 transition-all group">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-[#1DB954] flex items-center justify-center">
+                         <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.84.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                         </svg>
+                      </div>
+                      <span className="font-bold text-white">Apple Music / iTunes</span>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-softGray group-hover:text-[#1DB954] transition-colors" />
+                  </a>
+                )}
               </div>
             </div>
           </div>

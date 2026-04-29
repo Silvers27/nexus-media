@@ -4,7 +4,7 @@ import { Play } from "lucide-react";
 import HeroSearch from "@/components/home/HeroSearch";
 import QuickTools from "@/components/home/QuickTools";
 import { fetchTrendingMovies } from "@/lib/api/tmdb";
-import { fetchTrendingMusic } from "@/lib/api/spotify";
+import { fetchTrendingMusic } from "@/lib/api/music";
 
 export default async function Home() {
   const moviesData = await fetchTrendingMovies().catch(() => ({ results: [] }));

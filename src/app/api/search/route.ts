@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { searchMovies } from "@/lib/api/tmdb";
-import { searchMusic } from "@/lib/api/spotify";
+import { searchMusic } from "@/lib/api/music";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

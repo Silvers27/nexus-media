@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Play, TrendingUp, Music, Film } from "lucide-react";
 import { fetchTrendingMovies } from "@/lib/api/tmdb";
-import { fetchTrendingMusic } from "@/lib/api/spotify";
+import { fetchTrendingMusic } from "@/lib/api/music";
 
 export const metadata = {
   title: "Trending Now | NexusMedia",
